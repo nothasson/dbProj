@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 var models = require('../dbConfig')
-=======
-var models = require('../db')
->>>>>>> 0d06a8602228220a8e789a501242fd30d0bb8b1a
 var express = require('express')
 var router = express.Router()
 var mysql = require('mysql')

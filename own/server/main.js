@@ -43,7 +43,12 @@ var sqlMap ={
         update:'update tbUser set password = ? WHERE username = ?'
     },
     tbPower:{
-        update:'update tbUser set '
+        updateT:'update tbPower set powerT = ? WHERE username = ? ',
+        updateC:'update tbPower set powerC = ? WHERE username = ? ',
+        updateTC:'update tbPower set powerTC = ? WHERE username = ? ',
+        updateST:'update tbPower set powerST = ? WHERE username = ? ',
+        updateSC:'update tbPower set powerST = ? WHERE username = ? ',
+        delete:'delete from tbPower where username = ?',
     }
 }
 handleError();
