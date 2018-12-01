@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script src="js/own.js"></script>
     <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
     <!-- Twitter meta-->
     <meta property="twitter:card" content="summary_large_image">
@@ -43,8 +44,8 @@
     <aside class="app-sidebar">
       <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="icons/sysController.png" alt="User Image">
         <div>
-          <p class="app-sidebar__user-name">林老板</p>
-          <p class="app-sidebar__user-designation">系统管理员</p>
+          <p class="app-sidebar__user-name" id = 'username'>林老板</p>
+          <p class="app-sidebar__user-designation" id = 'userType'>系统管理员</p>
         </div>
       </div>
       <ul class="app-menu">
@@ -227,6 +228,7 @@
                   </div>
     </main>
     <!-- Essential javascripts for application to work-->
+    <script src="js/own.js"></script>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

@@ -40,7 +40,7 @@ function handleError () {
 var sqlMap ={
     tbUser:{
         search:'SELECT * FROM tbUser ',
-        update:'update tbUser set password = ? WHERE username = ?'
+        update:'update tbUser set password = ? WHERE username = ?',
     },
     tbPower:{
         updateT:'update tbPower set powerT = ? WHERE username = ? ',
@@ -49,6 +49,12 @@ var sqlMap ={
         updateST:'update tbPower set powerST = ? WHERE username = ? ',
         updateSC:'update tbPower set powerST = ? WHERE username = ? ',
         delete:'delete from tbPower where username = ?',
+    },
+    tbTeacher:{
+        update:'update tbTeacher set tNo = ?,tName =?,tEducation = ?,tTitle = ? ,tTime = ? WHERE tNo = ?',
+        delete:'delete from tbTeacher WHERE tNo = ?',
+        add:'insert into tbTeacher(tNO,tName,tEducation,tTitle,tTime) values(?,?,?,?,?)',
+        search:'select * from tbTeacher where tNo=? or tName=? or tEducation=? or tTitle=? or tTile=?'
     }
 }
 handleError();
