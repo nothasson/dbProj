@@ -39,7 +39,7 @@ function handleError () {
 
 var sqlMap ={
     tbUser:{
-        search:'SELECT * FROM tbUser ',
+        search:'SELECT * FROM tbUser where username = ?',
         update:'update tbUser set password = ? WHERE username = ?',
     },
     tbPower:{
@@ -51,34 +51,17 @@ var sqlMap ={
         delete:'delete from tbPower where username = ?',
     },
     tbTeacher:{
-        update:'update tbTeacher set tNo = ?,tName =?,tEducation = ?,tTitle = ? ,tTime = ? WHERE tNo = ?',
+        update:'update tbTeacher set tName =?,tEducation = ?,tTitle = ? ,tSchool=?,tTime = ? WHERE tNo = ?',
         delete:'delete from tbTeacher WHERE tNo = ?',
-        add:'insert into tbTeacher(tNO,tName,tEducation,tTitle,tTime) values(?,?,?,?,?)',
-        search:'select * from tbTeacher where tNo=? or tName=? or tEducation=? or tTitle=? or tTile=?',
-<<<<<<< HEAD
+        add:'insert into tbTeacher(tNO,tName,tEducation,tTitle,tSchool,tTime) values(?,?,?,?,?,?)',
         searchBySomething:'select ? ,count(*) from tbTeacher group by ?',
         showAll:'select * from tbTeacher'
-=======
-        searchBySomething:'select count(*) from tbTeacher group by ?'
->>>>>>> fa8b52ffa0c3eb1e1244889ecbad1e82dc7a9770
     },
     tbCourse:{
         update:'update tbCourse set cNo =?,cName=?',
         delete:'delete from tbCourse WHERE cNo = ?',
         add:'insert into tbCourse values(?,?)',
         search:'select * from tbCourse'
-    },
-    tbteacour:{
-        update:'update tbteacour set tNo =?,cNo=?,tcMoney=?,tcTime=?',
-        add:'insert into tbteacour values(?,?,?,?)',
-        delete:'delete from tbteacour where tNo=? and cNo=? and tcMoney=? and tcTimes=?',
-        search:'select * from tbteacour where tNo=? or cNo=? or tcMoney=? or tcTimes=?'
-    },
-    tbschoolcour:{
-        add:'insert into tbschoolcour values(?,?)',
-        update:'update tbschoolcour set stName =?,cNo=?',
-        delete:'delete from tbschoolcour where stName =? and cNo = ?',
-        search:'select * from tbschoolcour stName =? or cNo = ?'
     },
     tbschooltea:{
         add:'insert into tbschooltea values(?,?)',
@@ -99,42 +82,89 @@ app.all('*', function(req, res, next) {
     res.header("author","hasson");
     next();
 });
-
+//user表相关接口
 app.post('/checkPw',function(req,res){
     var query = req.query || {};
-    var query = req.originalUrl;//获取请求url
-    conn.query(sqlMap.tbUser.search, function (err,data) {
+    var data =  JSON.parse(JSON.stringify(query));
+    values = [];
+    for (var k in data){
+        values.push(data[k]);
+    }
+    conn.query(sqlMap.tbUser.search,values, function (err,result) {
         if(err){
             console.log(err);
         }else{
             //console.log(data);  //打印数据
-            res.end(JSON.stringify(data));  
+            res.end(JSON.stringify(result));  
         }
     });
 });
-app.post('/checkPw',function(req,res){
+app.post('/changePw',function(req,res){
     var query = req.query || {};
-    var query = req.originalUrl;//获取请求url
-    conn.query(sqlMap.tbUser.search, function (err,data) {
+    var data =  JSON.parse(JSON.stringify(query));
+    values = [];
+    for (var k in data){
+        values.push(data[k]);
+    }
+    conn.query(sqlMap.tbUser.update,values,function(err,data){
         if(err){
             console.log(err);
         }else{
             //console.log(data);  //打印数据
-            res.end(JSON.stringify(data));  
+            res.end(JSON.stringify(query));  
+        }
+    });
+});
+
+
+//teacher表相关接口
+app.post('/updateTeacher',function(req,res){
+    var query = req.query || {};
+    var data =  JSON.parse(JSON.stringify(query));
+    var values = [];
+    for (var k in data){
+        values.push(data[k]);
+    }
+    conn.query(sqlMap.tbTeacher.update,values,function(err,data){
+        if(err){
+            console.log(err);
+        }else{
+            //console.log(data);  //打印数据
+            res.end(JSON.stringify(query));  
         }
     });
 });
 app.post('/deleteTeacher',function (req,res) {
-    var query = req.query;
-    conn.query(sqlMap.tbTeacher.delete,query['aa'],function(err,data){
+    var query = req.query || {};
+    var data =  JSON.parse(JSON.stringify(query));
+    var values = [];
+    for (var k in data){
+        values.push(data[k]);
+    }
+    console.log(values);
+    conn.query(sqlMap.tbTeacher.delete,values,function(err,result){
         if(err){
             console.log(err);
         }else{
-            console.log("delete succes!");
+            //console.log(data);  //打印数据
+            res.end(JSON.stringify(result));  
         }
     });
 });
-app.post('/searchTeacher',function(req,res){
+app.post('/searchBySomething',function(req,res){
+    var query = req.query || {};
+    var data =  JSON.parse(JSON.stringify(query));
+    sqlSen = 'select "' + data['type'] + '",count(*) from tbTeacher group by "' + data['type'] + '"';
+    conn.query(sqlSen,function(err,data){
+        if(err){
+            console.log(err);
+        }else{
+            //console.log(data);  //打印数据
+            res.end(JSON.stringify(data));  
+        }
+    });
+});
+app.post('/showAllTeacher',function(req,res){
     var query = req.query || {};
     var query = req.originalUrl;//获取请求url
     conn.query(sqlMap.tbTeacher.showAll,function(err,data){
@@ -146,5 +176,24 @@ app.post('/searchTeacher',function(req,res){
         }
     });
 });
+app.post('/addTeacher',function(req,res){
+    var query = req.query || {};
+    var data =  JSON.parse(JSON.stringify(query));
+    var values = [];
+    for (var k in data){
+        values.push(data[k]);
+    }
+    console.log(values);
+    conn.query(sqlMap.tbTeacher.add,values,function(err,data){
+        if(err){
+            console.log(err);
+        }else{
+            //console.log(data);  //打印数据
+            res.end(JSON.stringify(query));  
+        }
+    });
+    //console.log(query);
+});
+
 
 
