@@ -1,4 +1,9 @@
-
+var modifyPw = function()
+{
+    var username = document.getElementById('userName').value;
+    var before = document.getElementById('beforePw').value;
+    var 
+}
 var loginClick = function()
 {
     

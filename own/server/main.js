@@ -54,9 +54,16 @@ var sqlMap ={
         update:'update tbTeacher set tNo = ?,tName =?,tEducation = ?,tTitle = ? ,tTime = ? WHERE tNo = ?',
         delete:'delete from tbTeacher WHERE tNo = ?',
         add:'insert into tbTeacher(tNO,tName,tEducation,tTitle,tTime) values(?,?,?,?,?)',
-        search:'select * from tbTeacher where tNo=? or tName=? or tEducation=? or tTitle=? or tTile=?'
+        search:'select * from tbTeacher where tNo=? or tName=? or tEducation=? or tTitle=? or tTile=?',
+        searchBySomething:'select count(*) from tbTeacher group by ?'
+    },
+    tbCourse:{
+        update:'update tbCourse set cNo =?,cName=?',
+        delete:'delete from tbCourse WHERE cNo = ?',
+        add:'insert into tbCourse values(?,?)',
+        
     }
-}
+};
 handleError();
 app.all('*', function(req, res, next) {
     //允许的来源
