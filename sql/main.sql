@@ -9,12 +9,14 @@ create table tbTeacher(
     tName varchar(16),
     tEducation varchar(16),
     tTitle varchar(16),
-    tTime Date)
+    tSchool varchar(16),
+    tTime varchar(16))
     default charset = utf8mb4;
 
 create table tbCourse(
 	cNO varchar(16) primary key,
-    cName varchar(16))
+    cName varchar(16),
+    cSchool varchar(16))
     default charset = utf8mb4;
     
 
@@ -26,19 +28,6 @@ create table tbTeaCour(
     tcMoney int,
     tcTimes int)
     default charset = utf8mb4;
-
-create table tbSchoolTea(
-	stName varchar(16),
-    tNo varchar(16),
-    foreign key(tNo) references tbTeacher(tNo))
-    default charset = utf8mb4;
-    
-create table tbSchoolCour(
-	stName varchar(16),
-    cNo varchar(16),
-    foreign key(cNo) references tbCourse(cNo))
-    default charset = utf8mb4;
-    
 create table tbUser(
 	username varchar(16) primary key,
     password varchar(32),
@@ -54,6 +43,8 @@ create table tbPower(
     powerSC boolean,
     foreign key(username) references tbUser(username))
     default	charset = utf8mb4;
+
+
     
 
     
