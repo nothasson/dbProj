@@ -55,8 +55,12 @@ var sqlMap ={
         delete:'delete from tbTeacher WHERE tNo = ?',
         add:'insert into tbTeacher(tNO,tName,tEducation,tTitle,tTime) values(?,?,?,?,?)',
         search:'select * from tbTeacher where tNo=? or tName=? or tEducation=? or tTitle=? or tTile=?',
+<<<<<<< HEAD
         searchBySomething:'select ? ,count(*) from tbTeacher group by ?',
         showAll:'select * from tbTeacher'
+=======
+        searchBySomething:'select count(*) from tbTeacher group by ?'
+>>>>>>> fa8b52ffa0c3eb1e1244889ecbad1e82dc7a9770
     },
     tbCourse:{
         update:'update tbCourse set cNo =?,cName=?',
