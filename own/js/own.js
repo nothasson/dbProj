@@ -126,18 +126,18 @@ var modifyTeacher = function(r){
 };
 var modifyConfirmButton = document.getElementById('modifyConfirm');
 var comfirmModify = function(tNoText){
-    tNameText = document.getElementById('tNameText').value;
-    tEducationText = document.getElementById('tEducationText').value;
-    tTitleText = document.getElementById('tTitleText').value;
-    tSchoolText = document.getElementById('tSchoolText').value;
-    tTimeText = document.getElementById('tTimeText').value;
+    var tNameText = document.getElementById('tNameText').value;
+    var tEducationText = document.getElementById('tEducationText').value;
+    var tTitleText = document.getElementById('tTitleText').value;
+    var tSchoolText = document.getElementById('tSchoolText').value;
+    var tTimeText = document.getElementById('tTimeText').value;
     axios.post('/updateTeacher',{
         tName:tNameText,
         tSchool:tSchoolText,
         tTiTle:tTitleText,
         tEducation:tEducationText,
         tTime:tTimeText,
-        tNo:tNoText
+        tNo:String(tNoText)
     }).then(function (response) {
         console.log("@@@"+ tNameText);
         console.log(response);
