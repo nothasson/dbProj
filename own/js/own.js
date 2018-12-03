@@ -46,7 +46,9 @@ var showTeacherTable = function(){  //展示教师信息
             text.classList.add("fa","fa-fw","fa-lg","fa-times-circle");
             button.innerHTML="修改";
             button.append(text);
-            button.setAttribute("onclick","modifyTeacher()");
+            //button.setAttribute("onclick","modifyTeacher()");
+            button.setAttribute("data-toggle","modal");
+            button.setAttribute("data-target","#modifyModal");
             newDiv.append(button);
             div.append(newDiv);
             td.append(div);
@@ -98,18 +100,32 @@ var showUserInfoInPage = function(){    //展示用户表
 var deleteTeacher = function(r){
     document.getElementById('sampleTable').deleteRow(r+1);
 };
+var addTeacherButton = document.getElementById("addConfirm");
+addTeacherButton.onclick= function(){
+    var tNo = document.getElementById("addtNoText").value;
+    var tName = document.getElementById("addtNameText").value;
+    var tSchool = document.getElementById("addtSchoolText").value;
+    var tTiTle = document.getElementById("addtTitleText").value;
+    var tEducation = document.getElementById("addtEducationText").value;
+    var tTime = document.getElementById("addtTimeText").value;
+    var data = [tNo,tName,tSchool,tTiTle,tEducation,tTiTle,tTime];
+    axios.post('/addTeacher', {  //params参数必写 , 如果没有参数传{}也可以
+    params: { 
+       tNo: data[0],
+       tName: data[1],
+       tSchool:data[2],
+       tTitle:data[3],
+       tEducation:data[4],
+       tTime:data[5]
 
-var addTeacher = function(){
-    var url='addTeacher.html';                             //转向网页的地址; 
-    var name='add';                            //网页名称，可为空; 
-    var iWidth=518;                          //弹出窗口的宽度; 
-    var iHeight=566;                         //弹出窗口的高度; 
-    //获得窗口的垂直位置 
-    var iTop = (window.screen.availHeight - 20 - iHeight) / 2; 
-    //获得窗口的水平位置 
-    var iLeft = (window.screen.availWidth - 10 - iWidth) / 2; 
-   // window.open(url, name, 'height=' + iHeight + ',,innerHeight=' + iHeight + ',width=' + iWidth + ',innerWidth=' + iWidth + ',top=' + iTop + ',left=' + iLeft + ',status=no,toolbar=no,menubar=no,location=no,resizable=no,scrollbars=0,titlebar=no'); 
-    window.open("addTeacher.html", "newWindows", 
-    'height=100,width=400,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
+    }.then(function (res) {
+        console.log(res);
+    }).catch(function (err) {
+    console.log(err);
+    }
+)
+});
 };
+
+
 showUserInfoInPage();
