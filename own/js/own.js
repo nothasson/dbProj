@@ -149,7 +149,7 @@ var comfirmModify = function(tNoText){
 };
 var addTeacherButton = document.getElementById("addConfirm");
 addTeacherButton.onclick= function(){
-    var tNo = document.getElementById("addtNoText").value;
+    var tNo = Srting(document.getElementById("addtNoText").value);
     var tName = document.getElementById("addtNameText").value;
     var tSchool = document.getElementById("addtSchoolText").value;
     var tTiTle = document.getElementById("addtTitleText").value;
