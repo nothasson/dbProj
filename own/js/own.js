@@ -42,6 +42,7 @@ var showTeacherTable = function(){  //展示教师信息
             button = document.createElement("button");
             button.classList.add("btn","btn-sm","btn-primary");
             button.setAttribute("type","button");
+            button.setAttribute("onclick","modifyTeacher(" + i + ")");
             text = document.createElement("i");
             text.classList.add("fa","fa-fw","fa-lg","fa-times-circle");
             button.innerHTML="修改";
@@ -100,6 +101,52 @@ var showUserInfoInPage = function(){    //展示用户表
 var deleteTeacher = function(r){
     document.getElementById('sampleTable').deleteRow(r+1);
 };
+
+var modifyTeacher = function(r){
+    var row = document.getElementById('sampleTable').rows[r+1];
+    console.log(row);
+    var tNoText = row.cells[0].innerText.replace(/\s*/g,"");
+    console.log(tNoText);
+    var tNameText = row.cells[1].innerText.replace(/\s*/g,"");
+    console.log(tNameText);
+    var tEducationText = row.cells[2].innerText.replace(/\s*/g,"");
+    console.log(tEducationText);
+    var tTitleText = row.cells[3].innerText.replace(/\s*/g,"");
+    console.log(tTitleText);
+    var tSchoolText = row.cells[4].innerHTML.replace(/\s*/g,"");
+    console.log(tSchoolText);
+    var tTimeText = row.cells[5].innerHTML.replace(/\s*/g,"");
+    console.log(tTimeText);
+    document.getElementById('tNameText').value = tNameText;
+    document.getElementById('tSchoolText').value = tSchoolText;
+    document.getElementById('tTitleText').value = tTitleText;
+    document.getElementById('tEducationText').value = tEducationText;
+    document.getElementById('tTimeText').value = tTimeText;
+    document.getElementById('modifyConfirm').setAttribute("onclick","comfirmModify(" + tNoText + ")");
+};
+var modifyConfirmButton = document.getElementById('modifyConfirm');
+var comfirmModify = function(tNoText){
+    tNameText = document.getElementById('tNameText').value;
+    tEducationText = document.getElementById('tEducationText').value;
+    tTitleText = document.getElementById('tTitleText').value;
+    tSchoolText = document.getElementById('tSchoolText').value;
+    tTimeText = document.getElementById('tTimeText').value;
+    axios.post('/updateTeacher',{
+        tName:tNameText,
+        tSchool:tSchoolText,
+        tTiTle:tTitleText,
+        tEducation:tEducationText,
+        tTime:tTimeText,
+        tNo:tNoText
+    }).then(function (response) {
+        console.log("@@@"+ tNameText);
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      
+};
 var addTeacherButton = document.getElementById("addConfirm");
 addTeacherButton.onclick= function(){
     var tNo = document.getElementById("addtNoText").value;
@@ -109,23 +156,27 @@ addTeacherButton.onclick= function(){
     var tEducation = document.getElementById("addtEducationText").value;
     var tTime = document.getElementById("addtTimeText").value;
     var data = [tNo,tName,tSchool,tTiTle,tEducation,tTiTle,tTime];
-    axios.post('/addTeacher', {  //params参数必写 , 如果没有参数传{}也可以
-    params: { 
-       tNo: data[0],
-       tName: data[1],
-       tSchool:data[2],
-       tTitle:data[3],
-       tEducation:data[4],
-       tTime:data[5]
+    var confirmButton = document.getElementById('modifyConfirm');
+    confirm.onclick = function(){
 
-    }.then(function (res) {
-        console.log(res);
-    }).catch(function (err) {
-    console.log(err);
-    }
-)
+        axios.post('/addTeacher', {  //params参数必写 , 如果没有参数传{}也可以
+        params: { 
+           tNo: data[0],
+           tName: data[1], 
+           tSchool:data[2],
+           tTitle:data[3],
+           tEducation:data[4],
+           tTime:data[5]
+    
+        }.then(function (res) {
+            console.log(res);
+        }).catch(function (err) {
+        console.log(err);
+        })
+    
 });
+    };
+    showTeacherTable();
 };
-
 
 showUserInfoInPage();

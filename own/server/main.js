@@ -51,7 +51,7 @@ var sqlMap ={
         delete:'delete from tbPower where username = ?',
     },
     tbTeacher:{
-        update:'update tbTeacher set tName =?,tEducation = ?,tTitle = ? ,tSchool=?,tTime = ? WHERE tNo = ?',
+        update:'update tbTeacher set tName = ?,tEducation = ?,tTitle = ? ,tSchool=?,tTime = ? WHERE tNo = ?',
         delete:'delete from tbTeacher WHERE tNo = ?',
         add:'insert into tbTeacher(tNO,tName,tEducation,tTitle,tSchool,tTime) values(?,?,?,?,?,?)',
         searchBySomething:'select ? ,count(*) from tbTeacher group by ?',
@@ -119,12 +119,14 @@ app.post('/changePw',function(req,res){
 
 //teacher表相关接口
 app.post('/updateTeacher',function(req,res){
+
     var query = req.query || {};
     var data =  JSON.parse(JSON.stringify(query));
     var values = [];
     for (var k in data){
         values.push(data[k]);
     }
+    console.log(values);
     conn.query(sqlMap.tbTeacher.update,values,function(err,data){
         if(err){
             console.log(err);
