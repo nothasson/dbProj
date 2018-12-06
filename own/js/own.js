@@ -99,7 +99,15 @@ var showUserInfoInPage = function(){    //展示用户表
 };
 
 var deleteTeacher = function(r){
+    var tNo =  document.getElementById('sampleTable').rows[r+1].cells[0].innerHTML.replace(/\s*/g,"");
     document.getElementById('sampleTable').deleteRow(r+1);
+    url = '/deleteTeacher?tNo='+tNo;
+    axios.post(url)
+    .then(function (res) {
+        console.log(res);
+    }).catch(function (err) {
+    console.log(err);
+    });
 };
 
 var modifyTeacher = function(r){
@@ -131,21 +139,18 @@ var comfirmModify = function(tNoText){
     var tTitleText = document.getElementById('tTitleText').value;
     var tSchoolText = document.getElementById('tSchoolText').value;
     var tTimeText = document.getElementById('tTimeText').value;
-    axios.post('/updateTeacher',{
-        tName:tNameText,
-        tSchool:tSchoolText,
-        tTiTle:tTitleText,
-        tEducation:tEducationText,
-        tTime:tTimeText,
-        tNo:String(tNoText)
-    }).then(function (response) {
+    var url = '/updateTeacher?tName='+tNameText+'&tSchool='+ tSchoolText+'&tTitle='+ tTitleText+'&tEducation='+ tEducationText+'&tTime=' + tTimeText+'&tNo=' + tNoText;
+    console.log(url);
+    axios.post(url)
+        .then(function (response) {
         console.log("@@@"+ tNameText);
         console.log(response);
       })
       .catch(function (error) {
         console.log(error);
       });
-      
+      location.reload();
+      showTeacherTable();
 };
 var addTeacherButton = document.getElementById("addConfirm");
 addTeacherButton.onclick= function(){
@@ -155,28 +160,16 @@ addTeacherButton.onclick= function(){
     var tTiTle = document.getElementById("addtTitleText").value;
     var tEducation = document.getElementById("addtEducationText").value;
     var tTime = document.getElementById("addtTimeText").value;
-    var data = [tNo,tName,tSchool,tTiTle,tEducation,tTiTle,tTime];
-    var confirmButton = document.getElementById('modifyConfirm');
-    confirm.onclick = function(){
+    url = '/addTeacher?tNo='+tNo+'&tName='+tName+'&tSchool'+tSchool+'&tTitle='+tTiTle+'&tEducation='+tEducation+'&tTime='+tTime;
+    console.log(url);
+    axios.post(url)
+    .then(function (res) {
+        console.log(res);
+    }).catch(function (err) {
+    console.log(err);
+    });
+    location.reload();
 
-        axios.post('/addTeacher', {  //params参数必写 , 如果没有参数传{}也可以
-        params: { 
-           tNo: data[0],
-           tName: data[1], 
-           tSchool:data[2],
-           tTitle:data[3],
-           tEducation:data[4],
-           tTime:data[5]
-    
-        }.then(function (res) {
-            console.log(res);
-        }).catch(function (err) {
-        console.log(err);
-        })
-    
-});
-    };
-    showTeacherTable();
 };
 
 showUserInfoInPage();
