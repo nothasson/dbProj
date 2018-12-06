@@ -196,6 +196,19 @@ app.post('/addTeacher',function(req,res){
     });
     //console.log(query);
 });
+app.post('/searchBySomeValue' ,function(req,res){
+    var query = req.query || {};
+    var data =  JSON.parse(JSON.stringify(query));
+    sqlSen = 
+    conn.query(sqlSen,function(err,data){
+        if(err){
+            console.log(err);
+        }else{
+            //console.log(data);  //打印数据
+            res.end(JSON.stringify(data));  
+        }
+    });
+});
 
 
 

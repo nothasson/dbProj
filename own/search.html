@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
     <!-- Twitter meta-->
     <meta property="twitter:card" content="summary_large_image">
@@ -81,7 +82,7 @@
                       <b>&nbsp;&nbsp;院系名含有&nbsp;&nbsp;&nbsp;</b>
                       <input id="getSchool" type="search" class="search-input form-control form-control-sm" placeholder="默认为全部" aria-controls="sampleTable">
                         <div>
-                      <a class="btn btn-primary icon-btn" href=""><i class="fa fa-search"></i>查询	</a>
+                      <a class="btn btn-primary icon-btn" id="searchBySomething"><i class="fa fa-search"></i>查询	</a>
                     </div>
                       </div>
                     </div>
@@ -92,82 +93,24 @@
           <div class="col-md-12">
             <div class="tile">
               <div class="tile-body">
-                  <table class="table table-hover table-bordered" id="sampleTable">
-                      <thead>
-                        <tr>
-                          <th>工号</th>
-                          <th>姓名</th>
-                          <th>院系</th>
-                          <th>课程</th>
-                          <th>职称</th>
-                          <th>学历</th>
-                          <th>入职时间</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>19981013</td>
-                          <td>Tom Steve</td>
-                          <td>CS</td>
-                          <td>DataBase</td>
-                          <td>教授</td>
-                          <td>博士</td>
-                          <td>2011/04/25</td> 
-                        </tr>
-                        <tr>
-                            <td>19981013</td>
-                            <td>Tom Steve</td>
-                            <td>CS</td>
-                            <td>DataBase</td>
-                            <td>教授</td>
-                            <td>博士</td>
-                            <td>2011/04/25</td>
-                        </tr>
-                        <tr>
-                            <td>19981013</td>
-                            <td>Tom Steve</td>
-                            <td>CS</td>
-                            <td>DataBase</td>
-                            <td>教授</td>
-                            <td>博士</td>
-                            <td>2011/04/25</td>
-                        </tr>
-                        <tr>
-                            <td>19981013</td>
-                            <td>Tom Steve</td>
-                            <td>CS</td>
-                            <td>DataBase</td>
-                            <td>教授</td>
-                            <td>博士</td>
-                            <td>2011/04/25</td>  
-                          </tr>
-                      </tbody>
-                    </table>
-    
+                <table class="table table-striped table-hover table-bordered" id="sampleTable">
+                  <thead>
+                    <tr>
+                      <th>工号</th>
+                      <th>姓名</th>
+                      <th>学历</th>
+                      <th>职称</th>
+                      <th>院系</th>
+                      <th>入职时间</th>
+                    </tr>
+                  </thead>
+                  <tbody> 
+                  </tbody>
+                </table>
               </div>
-              <div class="row">
-                <div class="col-sm-12 col-md-5">
-                  <div class="dataTables_info" id="sampleTable_info" role="status" aria-live="polite">Showing 1 to 10 of 3 entries</div>
-                </div>
-                <div class="col-sm-12 col-md-7">
-                  <div class="dataTables_paginate paging_simple_numbers" id="sampleTable_paginate">
-                    <ul class="pagination">
-                      <li class="paginate_button page-item previous disabled" id="sampleTable_previous">
-                        <a href="#" aria-controls="sampleTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-                        <li class="paginate_button page-item active">
-                          <a href="#" aria-controls="sampleTable" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="sampleTable" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="sampleTable" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="sampleTable" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="sampleTable" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="sampleTable" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
-                          <li class="paginate_button page-item next" id="sampleTable_next"><a href="#" aria-controls="sampleTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
     </main>
     <!-- Essential javascripts for application to work-->
+    <script src="js/search.js"></script>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

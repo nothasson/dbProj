@@ -172,4 +172,5 @@ addTeacherButton.onclick= function(){
 
 };
 
+
 showUserInfoInPage();
