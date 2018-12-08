@@ -10,3 +10,5 @@ insert into tbteacour value('2001','101',500,2,1000);
 insert into tbteacour value('2001','102',600,2,1200);
 insert into tbteacour value('2002','101',300,4,1200);
 insert into tbteacour value('2101','103',400,3,1200);
+insert into tbteacour value('2101','104',100,2,200);
+insert into tbteacour value('2101','105',300,2,600);

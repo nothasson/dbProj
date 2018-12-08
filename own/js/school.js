@@ -25,7 +25,7 @@ var showTCTable = function(){  //展示教师上课
             button = document.createElement("button");
             button.classList.add("btn","btn-sm","btn-primary");
             button.setAttribute("type","button");
-            button.setAttribute("onclick","modifyTeacher(" + i + ")");
+            button.setAttribute("onclick","modifyTeacour(" + i + ")");
             text = document.createElement("i");
             text.classList.add("fa","fa-fw","fa-lg","fa-times-circle");
             button.innerHTML="修改";
@@ -46,7 +46,7 @@ var showTCTable = function(){  //展示教师上课
             button = document.createElement("button");
             button.classList.add("btn","btn-sm","btn-danger");
             button.setAttribute("type","button");
-            button.setAttribute("onclick","deleteTeacher(" + i + ")");
+            button.setAttribute("onclick","deleteTeacour(" + i + ")");
             text = document.createElement("i");
             text.classList.add("fa","fa-fw","fa-lg","fa-times-circle");
             button.innerHTML="删除";
@@ -85,19 +85,17 @@ var modifyTeacour = function(r){
     console.log(tcMoneyText);
     var tcTimesText = row.cells[3].innerText.replace(/\s*/g,"");
     console.log(tcTimesText);
-    var tcSalaryText = row.cells[4].innerHTML.replace(/\s*/g,"");
-    console.log(tcSalaryText);
+    var tcSalaryText = row.cells[4].innerText.replace(/\s*/g,"");
     document.getElementById('tcMoneyText').value = tcMoneyText;
     document.getElementById('tcTimesText').value = tcTimesText;
-    document.getElementById('tcSalaryText').value = tcSalaryText;
     document.getElementById('modifyConfirm').setAttribute("onclick","comfirmModify(" + tNoText+','+ cNoText + ")");
 };
 var modifyConfirmButton = document.getElementById('modifyConfirm');
 var comfirmModify = function(tNoText,cNoText){
     var tcMoneyText = document.getElementById('tcMoneyText').value;
     var tcTimesText = document.getElementById('tcTimesText').value;
-    var tcSalaryText = document.getElementById('tcSalaryText').value;
-    var url = '/updateTeacourr?tcMoney='+tcMoneyText+'&tcTimes='+tcTimesText+'&tcSalaryText='+tcSalaryText+'&tNo='+tNoText+'&cNo='+cNoText;
+    var tcSalaryText = tcMoneyText * tcTimesText;
+    var url = '/updateTeacour?tcMoney='+tcMoneyText+'&tcTimes='+tcTimesText+'&tcSalaryText='+tcSalaryText+'&tNo='+tNoText+'&cNo='+cNoText;
     console.log(url);
     axios.post(url)
         .then(function (response) {
@@ -108,6 +106,24 @@ var comfirmModify = function(tNoText,cNoText){
         console.log(error);
       });
       location.reload();
-      showTeacherTable();
+      showTCTable();
 };
 showTCTable();
+var addTeaCour = document.getElementById("addConfirm");
+addTeaCour.onclick= function(){
+    var tNo = document.getElementById("addtNoText").value;
+    var cNo = document.getElementById("addcNoText").value;
+    var tMoney = document.getElementById("addtMoneyText").value;
+    var tTimes = document.getElementById("addtTimesText").value;
+    var Salary = tMoney * tTimes;
+    url = '/addTeacour?tNo='+tNo+'&cNo='+cNo+'&tcMoney='+tMoney+'&tcTimes='+tTimes+'&tcSalary='+Salary;
+    console.log(url);
+    axios.post(url)
+    .then(function (res) {
+        console.log(res);
+    }).catch(function (err) {
+    console.log(err);
+    });
+    location.reload();
+
+};

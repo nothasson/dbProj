@@ -22,12 +22,11 @@ create table tbCourse(
 
 create table tbTeaCour(
 	tNo varchar(16), 
-    foreign key(tNo) references tbTeacher(tNo),
     cNo varchar(16),
-    foreign key(cNo) references tbCourse(cNo),
     tcMoney int,
     tcTimes int,
-    tcSalary int)
+    tcSalary int,
+    primary key(tNo,cNo))
     default charset = utf8mb4;
 create table tbUser(
 	username varchar(16) primary key,

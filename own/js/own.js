@@ -1,21 +1,4 @@
 axios.defaults.baseURL = 'http://127.0.0.1:3000';
-var loginClick = function()  //检测账号密码并登陆
-{
-    var username = document.getElementById('loginUsername').value;
-    console.log(username);
-    var password = hex_md5(document.getElementById('loginPassword').value);
-    console.log(password);
-    axios.post('/checkPw')
-    .then(function(response) {
-      data =response.data;
-      if (username == data[0]['username'] && password == data[0]['password']){
-          window.location.href = 'index.html' + '?username='+data[0]['username']+'&type='+data[0]['type'];
-      }
-      else{
-          alert("密码错误！！");
-      }
-    });
-};
 var showTeacherTable = function(){  //展示教师信息
     var table = document.getElementById("sampleTable");
     var tbody = table.tBodies[0];
@@ -73,8 +56,7 @@ var showTeacherTable = function(){  //展示教师信息
             tr.append(td);
             tbody.append(tr);
         }      
-    console.log(myData);
-
+        console.log(myData);
     });
 
 };
@@ -91,6 +73,12 @@ var deleteTeacher = function(r){
 };
 
 var modifyTeacher = function(r){
+    if(document.getElementById('userType').innerHTML == '普通用户'){
+        alert('没有权限！！');
+        location.reload();
+        document.getElementById('myModalLabel').setAttribute("show",'false');
+        return;
+    }
     var row = document.getElementById('sampleTable').rows[r+1];
     console.log(row);
     var tNoText = row.cells[0].innerText.replace(/\s*/g,"");
@@ -133,7 +121,12 @@ var comfirmModify = function(tNoText){
       showTeacherTable();
 };
 var addTeacherButton = document.getElementById("addConfirm");
-addTeacherButton.onclick= function(){
+addTeacherButton.onclick = function(){
+    if(document.getElementById('userType').innerHTML == '普通用户'){
+        alert('没有权限！！');
+        location.reload();
+        return;
+    }
     var tNo = document.getElementById("addtNoText").value;
     var tName = document.getElementById("addtNameText").value;
     var tSchool = document.getElementById("addtSchoolText").value;
@@ -151,6 +144,21 @@ addTeacherButton.onclick= function(){
     location.reload();
 
 };
+var getUserInfo = function(){
+    var url = window.location.href;
+    var usernameEq = url.substring(url.search("username"),url.search("&"));
+    var username = usernameEq.substring(usernameEq.search("=")+ 1);
+    var typeEq = url.substring(url.search("type"));
+    var type = typeEq.substring(typeEq.search("=") + 1);
+    return [username,type];
+};
+var showUserInfoInPage = function(){    //展示用户表
+    myData = getUserInfo();
+    console.log(myData);
+    document.getElementById('username').innerHTML = myData[0];
+    type = ['普通用户','系统管理员'];
+    document.getElementById('userType').innerHTML = type[myData[1]];
+};
 
-
+showTeacherTable();
 showUserInfoInPage();
