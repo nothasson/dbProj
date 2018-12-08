@@ -26,7 +26,8 @@ create table tbTeaCour(
     cNo varchar(16),
     foreign key(cNo) references tbCourse(cNo),
     tcMoney int,
-    tcTimes int)
+    tcTimes int,
+    tcSalary int)
     default charset = utf8mb4;
 create table tbUser(
 	username varchar(16) primary key,
@@ -36,11 +37,7 @@ create table tbUser(
     
 create table tbPower(
 	username varchar(16),
-    powerT boolean,
-    powerC boolean,
-    powerTC boolean,
-    powerST boolean,
-    powerSC boolean,
+    power boolean,
     foreign key(username) references tbUser(username))
     default	charset = utf8mb4;
 

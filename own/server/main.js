@@ -43,11 +43,7 @@ var sqlMap ={
         update:'update tbUser set password = ? WHERE username = ?',
     },
     tbPower:{
-        updateT:'update tbPower set powerT = ? WHERE username = ? ',
-        updateC:'update tbPower set powerC = ? WHERE username = ? ',
-        updateTC:'update tbPower set powerTC = ? WHERE username = ? ',
-        updateST:'update tbPower set powerST = ? WHERE username = ? ',
-        updateSC:'update tbPower set powerST = ? WHERE username = ? ',
+        updateT:'update tbPower set power = ? WHERE username = ? ',
         delete:'delete from tbPower where username = ?',
     },
     tbTeacher:{
@@ -63,11 +59,11 @@ var sqlMap ={
         add:'insert into tbCourse values(?,?)',
         search:'select * from tbCourse'
     },
-    tbschooltea:{
-        add:'insert into tbschooltea values(?,?)',
-        update:'update tbschooltea set stName =?,tNo=?',
-        delete:'delete from tbschooltea where stName =? and tNo = ?',
-        search:'select * from tbschooltea where stName =? or tNo = ?'
+    tbTeaCour:{
+        search:'select * from tbteacour',
+        delete:'delete from tbTeaCour where tNo=? and cNo = ?',
+        add:'insert into tbTeaCour(tNo,cNo,tcMoney,tcTimes,tcSalary) values(?,?,?,?,?,)',
+        update:'update tbTeaCour set tcMoney = ?,tcTimes = ?,tcSalary = ? where tNo = ? and cNo = ?'
     }
 };
 handleError();
@@ -199,7 +195,11 @@ app.post('/addTeacher',function(req,res){
 app.post('/searchBySomeValue' ,function(req,res){
     var query = req.query || {};
     var data =  JSON.parse(JSON.stringify(query));
-    sqlSen = 
+    var values = [];
+    for (var k in data){
+        values.push(data[k]);
+    }
+    sqlSen = 'select * from tbTeacher where tName like "%' +values[0]+'%" and tTitle like "%'+values[1]+ '%" and tSchool like "%' + values[2] + '%"';  
     conn.query(sqlSen,function(err,data){
         if(err){
             console.log(err);
@@ -210,5 +210,87 @@ app.post('/searchBySomeValue' ,function(req,res){
     });
 });
 
+/////有关表格的！：
+app.post('/showChart',function(req,res){
+    var query = req.query || {};
+    var myData =  JSON.parse(JSON.stringify(query));
+    var values = [];
+    for (var k in myData){
+        values.push(myData[k]);
+    }
+    var sqlSen='select '+ values[0] +',count(*) as number from tbTeacher group by '+ values[0];
+    conn.query(sqlSen,function(err,data){
+        if(err){
+            console.log(err);
+        }else{
+            console.log(JSON.stringify(data));  //打印数据
+            res.end(JSON.stringify(data));  
+        }
+    });
+});
+app.post('/showTeacour',function(req,res){
+    var query = req.query || {};
+    var query = req.originalUrl;//获取请求url
+    conn.query(sqlMap.tbTeaCour.search,function(err,data){
+        if(err){
+            console.log(err);
+        }else{
+            //console.log(data);  //打印数据
+            res.end(JSON.stringify(data));  
+        }
+    });
+});
+app.post('/updateTeacour',function(req,res){
 
+    var query = req.query || {};
+    var data =  JSON.parse(JSON.stringify(query));
+    var values = [];
+    for (var k in data){
+        values.push(data[k]);
+    }
+    console.log(values);
+    conn.query(sqlMap.tbTeaCour.update,values,function(err,data){
+        if(err){
+            console.log(err);
+        }else{
+            //console.log(data);  //打印数据
+            res.end(JSON.stringify(query));  
+        }
+    });
+});
+app.post('/addTeacour',function(req,res){
+    var query = req.query || {};
+    var data =  JSON.parse(JSON.stringify(query));
+    var values = [];
+    for (var k in data){
+        values.push(data[k]);
+    }
+    console.log(values);
+    conn.query(sqlMap.tbTeaCour.add,values,function(err,data){
+        if(err){
+            console.log(err);
+        }else{
+            //console.log(data);  //打印数据
+            res.end(JSON.stringify(query));  
+        }
+    });
+    //console.log(query);
+});
+app.post('/deleteTeacour',function (req,res) {
+    var query = req.query || {};
+    var data =  JSON.parse(JSON.stringify(query));
+    var values = [];
+    for (var k in data){
+        values.push(data[k]);
+    }
+    console.log(values);
+    conn.query(sqlMap.tbTeaCour.delete,values,function(err,result){
+        if(err){
+            console.log(err);
+        }else{
+            //console.log(data);  //打印数据
+            res.end(JSON.stringify(result));  
+        }
+    });
+});
 

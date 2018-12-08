@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
     <!-- Twitter meta-->
     <meta property="twitter:card" content="summary_large_image">
@@ -69,16 +71,9 @@
         <div class="row">
           <div class="col-sm-12 col-md-6">
               <div class="tile-title-w-btn">
-                  <p><a class="btn btn-primary icon-btn" href=""><i class="fa fa-plus"></i>添加	</a></p>
+                  <p><a class="btn btn-primary icon-btn" href=""  data-toggle="modal" data-target="#addModal"><i class="fa fa-plus"></i>添加	</a></p>
                 </div>
           </div>
-          <div class="row">
-            <div id="sampleTable_filter" class="dataTables_filter">查询:
-              <label>
-                <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="sampleTable">
-              </label>
-              </div>
-            </div>
           </div>
         </div>
         <div class="row">
@@ -88,122 +83,84 @@
                 <table class="table table-hover table-bordered" id="sampleTable">
                   <thead>
                     <tr>
-                      <th>院系</th>
-                      <th>课程</th>
+                      <th>工号</th>
+                      <th>课程号</th>
                       <th>代课金</th>
+                      <th>每月上课数</th>
+                      <th>工资/月</th>
                       <th>修改</th>
                       <th>删除</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>      
-                      <td>
-                          <div class="row">
-                              <div class="col-md-8">
-                                <button class="btn btn-sm btn-primary" type="button">
-                                  <i class="fa fa-fw fa-lg fa-check-circle"></i>修改</button>
-                              </div>
-                            </div>
-                      </td>    
-                      <td>
-                          <div class="row">
-                              <div class="col-md-8">
-                                <button class="btn btn-sm btn-danger" type="button">
-                                  <i class="fa fa-fw fa-lg fa-times-circle"></i>删除</button>
-                              </div>
-                            </div>
-                      </td>  
-                    </tr>
-                    <tr>
-                      <td>Garrett Winters</td>
-                      <td>Accountant</td>
-                      <td>Tokyo</td>
-                      <td>
-                          <div class="row">
-                              <div class="col-md-8">
-                                <button class="btn btn-sm btn-primary" type="button">
-                                  <i class="fa fa-fw fa-lg fa-check-circle"></i>修改</button>
-                              </div>
-                            </div>
-                      </td>    
-                      <td>
-                          <div class="row">
-                              <div class="col-md-8">
-                                <button class="btn btn-sm btn-danger" type="button">
-                                  <i class="fa fa-fw fa-lg fa-times-circle"></i>删除</button>
-                              </div>
-                            </div>
-                      </td>  
-                    </tr>
-                    <tr>
-                      <td>Ashton Cox</td>
-                      <td>Junior Technical Author</td>
-                      <td>San Francisco</td>
-                      <td>
-                          <div class="row">
-                              <div class="col-md-8">
-                                <button class="btn btn-sm btn-primary" type="button">
-                                  <i class="fa fa-fw fa-lg fa-check-circle"></i>修改</button>
-                              </div>
-                            </div>
-                      </td>    
-                      <td>
-                          <div class="row">
-                              <div class="col-md-8">
-                                <button class="btn btn-sm btn-danger" type="button">
-                                  <i class="fa fa-fw fa-lg fa-times-circle"></i>删除</button>
-                              </div>
-                            </div>
-                      </td>  
-                    </tr>
-                    <tr>
-                        <td>Garrett Winters</td>
-                        <td>Accountant</td>
-                        <td>Tokyo</td>
-                        <td>
-                            <div class="row">
-                                <div class="col-md-8">
-                                  <button class="btn btn-sm btn-primary" type="button">
-                                    <i class="fa fa-fw fa-lg fa-check-circle"></i>修改</button>
-                                </div>
-                              </div>
-                        </td>    
-                        <td>
-                            <div class="row">
-                                <div class="col-md-8">
-                                  <button class="btn btn-sm btn-danger" type="button">
-                                    <i class="fa fa-fw fa-lg fa-times-circle"></i>删除</button>
-                                </div>
-                              </div>
-                        </td>  
-                      </tr>
                   </tbody>
                 </table>
               </div>
-              <div class="row">
-                <div class="col-sm-12 col-md-5">
-                  <div class="dataTables_info" id="sampleTable_info" role="status" aria-live="polite">Showing 1 to 10 of 3 entries</div>
-                </div>
-                <div class="col-sm-12 col-md-7">
-                  <div class="dataTables_paginate paging_simple_numbers" id="sampleTable_paginate">
-                    <ul class="pagination">
-                      <li class="paginate_button page-item previous disabled" id="sampleTable_previous">
-                        <a href="#" aria-controls="sampleTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-                        <li class="paginate_button page-item active">
-                          <a href="#" aria-controls="sampleTable" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="sampleTable" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="sampleTable" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="sampleTable" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="sampleTable" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="sampleTable" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
-                          <li class="paginate_button page-item next" id="sampleTable_next"><a href="#" aria-controls="sampleTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
+              <div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                              <h4 class="modal-title" id="myModalLabel">修改信息</h4>
+                          </div>
+                          <div class="modal-body">
+                            <div class="form-group">
+                              <label class="control-label">工号</label>
+                              <input class="form-control" type="text" id="tNameText">
+                            </div>
+                          <div class="form-group">
+                              <label class="control-label">课程号</label>
+                              <input class="form-control" type="text" id="tEducationText">
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label">代课金</label>
+                              <input class="form-control" type="text" id="tTitleText">
+                            </div>    
+                            <div class="form-group">
+                                <label class="control-label">每月上课数</label>
+                                <input class="form-control" type="text" id="tTitleText">
+                              </div>  
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                              <button type="button" class="btn btn-primary" id="modifyConfirm" data-dismiss="modal">提交更改</button>
+                          </div>
+                      </div><!-- /.modal-content -->
+                  </div><!-- /.modal -->
+              </div>
+              <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel" >添加上课信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                              <label class="control-label">工号</label>
+                              <input class="form-control" type="text" id="tNameText">
+                            </div>
+                          <div class="form-group">
+                              <label class="control-label">课程号</label>
+                              <input class="form-control" type="text" id="tEducationText">
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label">代课金</label>
+                              <input class="form-control" type="text" id="tTitleText">
+                            </div>    
+                            <div class="form-group">
+                                <label class="control-label">每月上课数</label>
+                                <input class="form-control" type="text" id="tTitleText">
+                              </div>  
+                          </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" id="addConfirm">添加</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
+            <script src="js/school.js"></script>
     </main>
     <!-- Essential javascripts for application to work-->
     <script src="js/jquery-3.2.1.min.js"></script>
